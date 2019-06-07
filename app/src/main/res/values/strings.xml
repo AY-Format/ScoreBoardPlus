@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ScoreBoard</string>
+    <string name="tv_TeamA">Team A</string>
+    <string name="tv_TeamB">Team B</string>
+    <string name="tv_TeamAScore">TeamAScore</string>
+    <string name="tv_TeamBScore">TeamBScore</string>
+    <string name="btn_addone" translatable="false">+1</string>
+    <string name="btn_addtwo" translatable="false">+2</string>
+    <string name="btn_addthree" translatable="false">+3</string>
+    <string name="iv_undo">undo</string>
+    <string name="iv_reset">reset</string>
+    <string name="tv_version" translatable="false">1.0 beta</string>
+</resources>
