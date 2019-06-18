@@ -1,50 +1,53 @@
 package com.example.scoreboard;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 public class MyViewModel extends ViewModel {
 
-    private MutableLiveData<Integer> teamA,teamB;
+    private SavedStateHandle savedStateHandle;
     private Integer scoreA,scoreB;
 
+    public MyViewModel(SavedStateHandle savedStateHandle){
+        this.savedStateHandle = savedStateHandle;
+    }
+
     public MutableLiveData<Integer> getTeamA() {
-        if (teamA==null) {
-            teamA = new MutableLiveData<>();
-            teamA.setValue(0);
+        if (!savedStateHandle.contains(MainActivity.TEAMA)) {
+           savedStateHandle.set(MainActivity.TEAMA,0);
         }
-        return teamA;
+        return savedStateHandle.getLiveData(MainActivity.TEAMA);
     }
 
     public MutableLiveData<Integer> getTeamB() {
-        if (teamB==null) {
-            teamB = new MutableLiveData<>();
-            teamB.setValue(0);
+        if (!savedStateHandle.contains(MainActivity.TEAMB)) {
+            savedStateHandle.set(MainActivity.TEAMB,0);
         }
-        return teamB;
+        return savedStateHandle.getLiveData(MainActivity.TEAMB);
     }
 
     public void addAScore(Integer s) {
-        scoreA = teamA.getValue();
-        scoreB = teamB.getValue();
-        teamA.setValue(teamA.getValue()+s);
+        scoreA = getTeamA().getValue();
+        scoreB = getTeamB().getValue();
+        getTeamA().setValue(getTeamA().getValue()+s);
     }
 
     public void addBScore(Integer s) {
-        scoreA = teamA.getValue();
-        scoreB = teamB.getValue();
-        teamB.setValue(teamB.getValue()+s);
+        scoreA = getTeamA().getValue();
+        scoreB = getTeamB().getValue();
+        getTeamB().setValue(getTeamB().getValue()+s);
     }
 
     public void resetScore() {
-        scoreA = teamA.getValue();
-        scoreB = teamB.getValue();
-        teamA.setValue(0);
-        teamB.setValue(0);
+        scoreA = getTeamA().getValue();
+        scoreB = getTeamB().getValue();
+        getTeamA().setValue(0);
+        getTeamB().setValue(0);
     }
 
     public void undo() {
-        teamA.setValue(scoreA);
-        teamB.setValue(scoreB);
+        getTeamA().setValue(scoreA);
+        getTeamB().setValue(scoreB);
     }
 }
